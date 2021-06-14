@@ -94,7 +94,7 @@ AND a Node-Red dashboard too! Credit to originator [@aitalinassim](https://flows
 
 3. Lovelace - Import and customize to your liking.
 
-```text
+```yaml
 type: custom:vertical-stack-in-card
 style: |
   ha-card {
