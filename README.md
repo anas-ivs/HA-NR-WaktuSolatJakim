@@ -1,22 +1,23 @@
-# HA-NR-MYCovidStats
+# HA-NR-WaktuSolatJakim
+Home Assistant &amp; Node Red Implementation of Waktu Solat Jakim ![visitors](https://visitor-badge.glitch.me/badge?page_id=anas-ivs.ha-nr-waktusolatjakim.visitor-badge)
 
- ![visitors](https://visitor-badge.glitch.me/badge?page_id=anas-ivs.ha-nr-waktusolatjakim.visitor-badge)
 
-Home Assistant &amp; Node Red Implementation of Waktu Solat Jakim 
+![Node-Red Header of HA-NR-WaktuSolatJakim](https://github.com/anas-ivs/HA-NR-WaktuSolatJakim/blob/main/images/header-HA-NR-WaktuSolatJakim.PNG)
 
-Original sharing by Bother [farxpeace](https://github.com/farxpeace/Home-Assistant-Waktu-Solat-Jakim) which implements REST calls to [AzanPro API's](https://api.azanpro.com/) to retrieve daily local Prayers times for use in [Home Assistant(HA)](https://www.home-assistant.io/) with HA configuration.yaml for sensors and REST calls. This piece of work was robust and allowed me learn and expand further building automations based on time sensors defined including 15-min prior notificaiton to Prayer time. 
 
-![Node-Red Flow of HA-NR-MYCovidStats](https://github.com/anasothman-myy/HA-NR-MYCovidStats/blob/main/Node-Red%20Flow%20-%20COVID19%20Stats.PNG)
+
+Original sharing by Brother [farxpeace](https://github.com/farxpeace/Home-Assistant-Waktu-Solat-Jakim) which implements REST calls to [AzanPro API's](https://api.azanpro.com/) to retrieve daily local Prayers times for use in [Home Assistant(HA)](https://www.home-assistant.io/) with HA configuration.yaml for sensors and REST calls. This piece of work was starting point and allowed me learn and expand further; building more and more time-based automations including 15-min prior notificaiton to Prayer time. 
 
 Sometime earlier in February 2021 - My [pi-hole](https://pi-hole.net/) statistics was showing AzanPro being #1 in chart for most site being requested for. While we later understood the underlying reason was self triggering of the rest call by HA API - I set myself a challenge to implement an alternative solution via Node-Red as part of my learning journey in understanding and better application of this tool. 
 
 First attempt in February failed - The JSON/MSG Payloads and data structures and flows for Node-Red was visually too heavy to be absored and understood. 
 
-Second attempt in June was succesfull after going through more videos and learning / expanding from other shared flows in [Node-Red Library](https://flows.nodered.org/). This flow itself building on top of [@aitalinassim](https://flows.nodered.org/flow/9d9a3abe9707d605c6b12d21ddf08658) shared flow of Muslim Prayer Times with API calls to [AlAdhan]( https://aladhan.com/). Like most external Prayer times database - there would be some differences against JAKIM published data. There is where [AzanPro API's](https://api.azanpro.com/) come in providing the same exact data. 
+Second attempt in June was succesfull after going through more videos and learning / expanding from other shared flows in [Node-Red Library](https://flows.nodered.org/). This HR-NR-WaktuSolatFlow flow itself foundation is based [@aitalinassim](https://flows.nodered.org/flow/9d9a3abe9707d605c6b12d21ddf08658) shared flow of Muslim Prayer Times with API calls to [AlAdhan]( https://aladhan.com/). Like most external Prayer times database - there would be some differences against JAKIM published data. There is where [AzanPro API's](https://api.azanpro.com/) come in providing the same exact data. 
 
-This Flow reimplements similar functions as per [farxpeace](https://github.com/farxpeace/Home-Assistant-Waktu-Solat-Jakim) implementation in HA but with Node-Red, this has become much more easier to GET, Store, Match prayer times and define each functions.
+This flow reimplements similar functions as per [farxpeace](https://github.com/farxpeace/Home-Assistant-Waktu-Solat-Jakim) implementation in HA but with Node-Red, this has become much more easier to GET, Store, Match prayer times and define each functions.
+> **WORK TO BE DONE** Switch daily retreival to monthly,yearly to be able for offline/help reduce load to AzanPro.
 
-![HA Lovelace](lovelace picture)
+![HA Lovelace](https://github.com/anas-ivs/HA-NR-WaktuSolatJakim/blob/main/images/Lovelace-entities-WaktuSolat.PNG)
 
 ![Telegram sample](telegram statistics)
 
@@ -26,11 +27,13 @@ AND a Node-Red dashboard too! Credit to originator [@aitalinassim](https://flows
 
 ## How It Works (Extension to Node-Red)
 - PART 1 - Retrieve Prayer Times 
+![Part1 Flow](https://github.com/anas-ivs/HA-NR-WaktuSolatJakim/blob/main/images/Flow_part1.PNG)
 1.  During initialize/once-daily/upon request - Node-Red via `http` nodes performs `GET` request to [AzanPro Get today prayer](https://api.azanpro.com/reference/times/today). 
 > **REQUIRED** Determine your location `ZONE` from this [listing](https://api.azanpro.com/zones)
 3.  Split the payload entities accordingly and save in HA entities defined as Sensors. Had the choice of sending all in one sensor entity with 5xprayer times as attributes `(sensor.waktu_solat` but exploring lovelace has limited features to call this out for display without use of custom mods. Other entities i.e. `sensor.subuh`, `sensor.syuruk` .. had to be created as well for Lovelace to be able to display easily. 
 
 - PART 2 - Every minute - Check current time against Prayer Times
+![Part2 Flow](https://github.com/anas-ivs/HA-NR-WaktuSolatJakim/blob/main/images/Flow_part2.PNG)
 1.  Node-Red via `inject` node every minute triggers the flow to retrieve the store Prayer Times in HA `sensor.waktu_solat` entity. 
 2.  In `function` node - current Date is requested and split down get current hour and minutes.
 > **WORK TO BE DONE** Script does not check if dates retreived and current match.
@@ -38,14 +41,15 @@ AND a Node-Red dashboard too! Credit to originator [@aitalinassim](https://flows
 4.  While a direct flow can be used to trigger our wanted action i.e. play Adhan on `media_player` - using `switch` node this flag can then be used to split the flow to the prayer time accordingly i.e. `Subuh` trigger me the `turn_on.lights` scene and `Maghrib` triggers my other `/gethadith` flow for random Hadith of the day to be read later with family.
 
 - PART 3 - OPTIONAL - Trigger 15 minutes notice prior to Adhan time.
+![Part2 Flow](https://github.com/anas-ivs/HA-NR-WaktuSolatJakim/blob/main/images/Flow_part3.PNG)
 > **Learning Journey** Rather than adjusting each prayer time forward by 15 minutes, it was much more easier to 'advance' the 'clock' by 15 minutes as reference.
 1.  This flow is similar to above; except it checks and set the flag for pretime accordingly.
 4.  Similarly using `switch` node this flag can then be used to split the flow to the 15 minute to prayer time accordingly i.e. `15 Minutes to Prayer` triggers Chromecast to play randomized playlist of either Live Makkah or Madinah Youtube feed, `15 Minutes to Maghrib` trigger scene to `turn_on.lights` and `cover.close` (tutup langsir). 
 
 -  Telegram node `/getwaktusolat`  for manual call request and sets flags to identify at output to only send Telegram update when requested. 
 
-- PRAYER/ TIMES ACTION - OPTIONAL 
-> **Learning Journey** Rather than adjusting each prayer time forward by 15 minutes, it was much more easier to 'advance' the 'clock' by 15 minutes as reference.
+- PRAYER TIMES ACTION - CUSTOMIZE TO YOUR PREFERENCE
+![ACTION!](https://github.com/anas-ivs/HA-NR-WaktuSolatJakim/blob/main/images/Flow_Actions.PNG)
 1. Trigger Telegram Notification:
 
 2. Trigger Chromecast to play TTS message.
