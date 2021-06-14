@@ -61,8 +61,9 @@ AND a Node-Red dashboard too! Credit to originator [@aitalinassim](https://flows
 2.  Telegram bot and chat ids. I followed this [tutorial](https://www.thesmarthomebook.com/2020/10/13/a-guide-to-using-telegram-with-node-red-and-home-assistant/) which is clear and easy to follow. 
 > **Tip:** Follow the steps to get botid/chatid only but you do not need to setup in Home Assistant Notify/Telegram platform. Use Node-Red fully for Telegram.
 4.  In Node-red the following additional nodes may be required:
--  `node-red-contrib-home-assistant-websocket` - Comes pre-installed if using default HA Node-Red Docker from Supervisor store. 
- - `node-red-contrib-telegrambot` - For Telegrambot. Setup as guide above.
+- `node-red-contrib-home-assistant-websocket` - Comes pre-installed if using default HA Node-Red Docker from Supervisor store. 
+- `node-red-contrib-telegrambot` - For Telegrambot. Setup as guide above.
+- `node-red-contrib-random-item ` - For random number generator to select random playlist.
 5.  For Home Assistant, the following will be required:
  - [Node-Red companion integration](https://github.com/zachowj/hass-node-red); install via [HACS](https://hacs.xyz/). This allows entities to be setup from node-red instead of manual sensor entities in configuration.yaml or helpers. 
 > **Tip:** Define name of entity node first before clicking 'deploy' to be able to register in HACS the exact sensor name you want instead of random numbers.
