@@ -154,6 +154,9 @@ cards:
 ```
 
 ## <a name="Credits"> Credits </a>
-##### Credit to @aitalinassim / @farxpeace
+##### Credit to @aitalinassim / 
+- [@farxpeace]() Original implementation in HA.
+- [@aitalinassim]() Node-Red baseline flow.
+- [@xsoh](https://github.com/xsoh/Hijri.js/blob/master/Hijri.js) Gregorian to Hijri calendar convert. Added 15/6
 
 ##### [Home Assistant Malaysia](https://www.facebook.com/groups/homeassistantmalaysia)
