@@ -1,6 +1,7 @@
 # HA-NR-WaktuSolatJakim
 Home Assistant &amp; Node Red Implementation of Waktu Solat Jakim ![visitors](https://visitor-badge.glitch.me/badge?page_id=anas-ivs.ha-nr-waktusolatjakim.visitor-badge)
 
+| [How it Works](#How) | [Pre-requisites](#Pre) | [Installation](#Install) | [Credits](#Credits) |
 
 ![Node-Red Header of HA-NR-WaktuSolatJakim](https://github.com/anas-ivs/HA-NR-WaktuSolatJakim/blob/main/images/header-HA-NR-WaktuSolatJakim.PNG)
 
@@ -26,7 +27,7 @@ AND a Node-Red dashboard too! Credit to originator [@aitalinassim](https://flows
 ![Node-Red Dashboard](https://github.com/anas-ivs/HA-NR-WaktuSolatJakim/blob/main/images/NodeRed%20WaktuSolat%20Dashboard.PNG)
 
 
-## How It Works (Extension to Node-Red)
+##<a name="How">How It Works (Extension to Node-Red)</a>
 - PART 1 - Retrieve Prayer Times 
 ![Part1 Flow](https://github.com/anas-ivs/HA-NR-WaktuSolatJakim/blob/main/images/Flow_part1.PNG)
 1.  During initialize/once-daily/upon request - Node-Red via `http` nodes performs `GET` request to [AzanPro Get today prayer](https://api.azanpro.com/reference/times/today). 
@@ -61,7 +62,7 @@ AND a Node-Red dashboard too! Credit to originator [@aitalinassim](https://flows
 -  Telegram node `/getwaktusolat`  for manual call request and sets flags to identify at output to only send Telegram update when requested. 
 
 
-## Pre-requisites 
+##<a name="Pre"> Pre-requisites </a>
 1.  Home Assistant with Node-Red. Ada banyak tutorial/videos on this with difficulty level as easy. [This is one example](http://https://www.juanmtech.com/get-started-with-node-red-and-home-assistant/). Test that you have enabled and can load Node-red on side bar. Make sure to also install [Node-Red companion integration](https://github.com/zachowj/hass-node-red).
 2.  Telegram bot and chat ids. I followed this [tutorial](https://www.thesmarthomebook.com/2020/10/13/a-guide-to-using-telegram-with-node-red-and-home-assistant/) which is clear and easy to follow. 
 > **Tip:** Follow the steps to get botid/chatid only but you do not need to setup in Home Assistant Notify/Telegram platform. Use Node-Red fully for Telegram.
@@ -77,7 +78,7 @@ AND a Node-Red dashboard too! Credit to originator [@aitalinassim](https://flows
 - [Mini graph card](https://github.com/kalkih/mini-graph-card)
     
 
-## Installation
+##<a name="Install">Installation</a>
 1. Determine location code  [listing](https://api.azanpro.com/zones). Example; Miri is in SWK02. 
 2. Node-Red.
 - Import [Flow](https://github.com/anasothman-myy/HA-NR-MYCovidStats/blob/main/ha-nr-mycovidstats.json) into Node Red (Upper Right burger stack -> Import).
@@ -147,7 +148,7 @@ cards:
 
 ```
 
-## Thanks
+##<a name="Credits"> Credits </a>
 ##### Credit to @aitalinassim / @farxpeace
 
 ##### [Home Assistant Malaysia](https://www.facebook.com/groups/homeassistantmalaysia)
