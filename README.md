@@ -27,14 +27,14 @@ AND a Node-Red dashboard too! Credit to originator [@aitalinassim](https://flows
 ![Node-Red Dashboard](https://github.com/anas-ivs/HA-NR-WaktuSolatJakim/blob/main/images/NodeRed%20WaktuSolat%20Dashboard.PNG)
 
 
-##<a name="How">How It Works (Extension to Node-Red)</a>
-- PART 1 - Retrieve Prayer Times 
+## <a name="How">How It Works (Extension to Node-Red)</a>
+### PART 1 - Retrieve Prayer Times 
 ![Part1 Flow](https://github.com/anas-ivs/HA-NR-WaktuSolatJakim/blob/main/images/Flow_part1.PNG)
 1.  During initialize/once-daily/upon request - Node-Red via `http` nodes performs `GET` request to [AzanPro Get today prayer](https://api.azanpro.com/reference/times/today). 
 > **REQUIRED** Determine your location `ZONE` from this [listing](https://api.azanpro.com/zones) and change in function node.
 2.  Split the payload entities accordingly and save in HA entities defined as Sensors. Had the choice of sending all in one sensor entity with 5xprayer times as attributes `(sensor.waktu_solat` but exploring lovelace has limited features to call this out for display without use of custom mods. Other entities i.e. `sensor.subuh`, `sensor.syuruk` .. had to be created as well for Lovelace to be able to display easily. 
 
-- PART 2 - Every minute - Check current time against Prayer Times
+### PART 2 - Every minute - Check current time against Prayer Times
 ![Part2 Flow](https://github.com/anas-ivs/HA-NR-WaktuSolatJakim/blob/main/images/Flow_part2.PNG)
 1.  Node-Red via `inject` node every minute triggers the flow to retrieve the store Prayer Times in HA `sensor.waktu_solat` entity. 
 2.  In `function` node - current Date is requested and split down get current hour and minutes.
@@ -42,7 +42,7 @@ AND a Node-Red dashboard too! Credit to originator [@aitalinassim](https://flows
 3.  Node then continues to verify against each prayer time and set payload of `.waktu` to the match prayer time.
 4.  While a direct flow can be used to trigger our wanted action i.e. play Adhan on `media_player` - using `switch` node this flag can then be used to split the flow to the prayer time accordingly i.e. `Subuh` trigger me the `turn_on.lights` scene and `Maghrib` triggers my other `/gethadith` flow for random Hadith of the day to be read later with family.
 
-- PART 3 - OPTIONAL - Trigger 15 minutes notice prior to Adhan time.
+### PART 3 - OPTIONAL - Trigger 15 minutes notice prior to Adhan time.
 ![Part2 Flow](https://github.com/anas-ivs/HA-NR-WaktuSolatJakim/blob/main/images/Flow_part3.PNG)
 > **Learning Journey** Rather than adjusting each prayer time forward by 15 minutes, it was much more easier to 'advance' the 'clock' by 15 minutes as reference.
 1.  This flow is similar to above; except it checks and set the flag for pretime accordingly.
@@ -62,7 +62,7 @@ AND a Node-Red dashboard too! Credit to originator [@aitalinassim](https://flows
 -  Telegram node `/getwaktusolat`  for manual call request and sets flags to identify at output to only send Telegram update when requested. 
 
 
-##<a name="Pre"> Pre-requisites </a>
+## <a name="Pre"> Pre-requisites </a>
 1.  Home Assistant with Node-Red. Ada banyak tutorial/videos on this with difficulty level as easy. [This is one example](http://https://www.juanmtech.com/get-started-with-node-red-and-home-assistant/). Test that you have enabled and can load Node-red on side bar. Make sure to also install [Node-Red companion integration](https://github.com/zachowj/hass-node-red).
 2.  Telegram bot and chat ids. I followed this [tutorial](https://www.thesmarthomebook.com/2020/10/13/a-guide-to-using-telegram-with-node-red-and-home-assistant/) which is clear and easy to follow. 
 > **Tip:** Follow the steps to get botid/chatid only but you do not need to setup in Home Assistant Notify/Telegram platform. Use Node-Red fully for Telegram.
@@ -78,7 +78,7 @@ AND a Node-Red dashboard too! Credit to originator [@aitalinassim](https://flows
 - [Mini graph card](https://github.com/kalkih/mini-graph-card)
     
 
-##<a name="Install">Installation</a>
+## <a name="Install">##Installation</a>
 1. Determine location code  [listing](https://api.azanpro.com/zones). Example; Miri is in SWK02. 
 2. Node-Red.
 - Import [Flow](https://github.com/anasothman-myy/HA-NR-MYCovidStats/blob/main/ha-nr-mycovidstats.json) into Node Red (Upper Right burger stack -> Import).
@@ -89,10 +89,15 @@ AND a Node-Red dashboard too! Credit to originator [@aitalinassim](https://flows
 - Additional: The missing `link-in` Telegram node can be imported [here](https://github.com/anasothman-myy/HA-NR-MYCovidStats/blob/main/telegram_output.json).
 3. Home Assistant
 - Under`Configuration -> Integrations -> Node-Red`  following created entities should now be available:
+
 -`switch.waktu_solat` - To enable the flow; set to true. Future expansion to trigger if Away from Home.
+
 -`sensor.zone_waktu_solat`
+
 -`sensor.waktu_solat` - With attributes for each prayer time and data from AzanPro
+
 -`sensor.subuh`, `sensor.syuruk`, `sensor.zohor`, `sensor.asar`, `sensor.maghrib`, `sensor.isyak`
+
 
 3. Lovelace - Import and customize to your liking.
 
@@ -148,7 +153,7 @@ cards:
 
 ```
 
-##<a name="Credits"> Credits </a>
+## <a name="Credits"> Credits </a>
 ##### Credit to @aitalinassim / @farxpeace
 
 ##### [Home Assistant Malaysia](https://www.facebook.com/groups/homeassistantmalaysia)
