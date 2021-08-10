@@ -189,7 +189,7 @@ Jika sudah bersedia - bolehlah terus lompat terus ke [sini](#ExportedFlow)
 
 > **Tip:** Bagi yang sudah mempunyai Telegram integration di Home Assistant; asignkan bot dengan menghidupkan satu lagi bot dan channel khas bagi Node Red. 
 
-## <a name="Install">##Pemasangan</a>
+## <a name="Install">Pemasangan</a>
 1. Tentukan Zone bagi kawasan anda melalui [listing](https://api.azanpro.com/zones) ini. Contohnya; Bagi kawasan Miri; kodnya adalah SWK02. 
 
 2. Import [Waktu Solat Flow](#ExportedFlow) ke dalam Node Red (Ikon burger di atas hujung kanan -> Import). Satu tab baru akan dibuka dengan nama 'Waktu Solat'
