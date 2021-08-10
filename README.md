@@ -4,8 +4,6 @@ Waktu Solat (eSolat JAKIM) Home Assistant menggunakan Node Red. ![visitors](http
 
 [Flow Logik](#flow) | [Bagaimana ia berfungsi?](#How) | [Pra-syarat](#Pre) | [Pemasangan](#Install) | [Lovelace](#lovelace) | [Kredit](#Credits) |
 
-![Node-Red Header of HA-NR-WaktuSolatJakim](https://github.com/anas-ivs/HA-NR-WaktuSolatJakim/blob/main/images/header-HA-NR-WaktuSolatJakim.PNG)
-
 Idea dan logik original perkongsian daripada komuniti [Home Assistant Malaysia](https://www.facebook.com/groups/homeassistantmalaysia) termasuk dari 
 
 1. [farxpeace](https://github.com/farxpeace/Home-Assistant-Waktu-Solat-Jakim) yang menggunakan REST calls ke [AzanPro API's](https://api.azanpro.com/). 
@@ -27,7 +25,7 @@ Kelebihan menggunakan Node-Red untuk Waktu Solat ini termasuklah pengaturcaraan 
    6. Penutupan TV secara automatik atau pembatalan penutupan TV melalui notifikasi ke Telefon.
 5. `Trigger` bagi menjalankan automation lain seperti membuka lampu luar dan menutup langsir 15 minit sebelum maghrib. 
 6. Menentukan tempoh sekarang dan pengiraan tempoh waktu hingga ke Solat seterusnya.
-7. Tamabahan - Waktu Solat Node-Red dashboard. Credit to originator flow [@aitalinassim](https://flows.nodered.org/flow/9d9a3abe9707d605c6b12d21ddf08658)/
+7. Tamabahan - Waktu Solat Node-Red dashboard. Credit to originator flow [@aitalinassim](https://flows.nodered.org/flow/9d9a3abe9707d605c6b12d21ddf08658)
 
 ![Node-Red Dashboard](https://github.com/anas-ivs/HA-NR-WaktuSolatJakim/blob/main/images/NodeRed%20WaktuSolat%20Dashboard.PNG)
 
@@ -66,7 +64,7 @@ Jika sudah bersedia - bolehlah terus lompat terus ke [sini](#ExportedFlow)
     4.  Data Waktu Solat ini :
         1.  Dihantar ke `flow` seterusnya sebagai `sensor.waktu_solat` untuk kegunaan Home Assistant. 
         2.  Disimpan di dalam `Flow Context` membolehkan `node` lain dalam Flow ini merujuk data ini. 
-    5.   Data waktu Solat Jakim juga memberi tarikh Hijri - bulan (dalam digit) dipadankan dengan nama bulan bulan Islam. Logik asal membuat perkiraan sendiri melalui [script](https://github.com/xsoh/Hijri.js)
+    5.   Data waktu Solat Jakim juga memberi tarikh Hijri - bulan (dalam digit) dipadankan dengan nama bulan bulan Islam. Logik asal membuat perkiraan sendiri melalui [javascript](https://github.com/xsoh/Hijri.js) yang telah dibuang dari flow ini.
     
     ![Step2](https://raw.githubusercontent.com/anas-ivs/HA-NR-WaktuSolatJakim/main/images/Step2-Harian_cmp.PNG)
 
@@ -97,7 +95,7 @@ Jika sudah bersedia - bolehlah terus lompat terus ke [sini](#ExportedFlow)
 
 1.  Bahagian ini mirip fungsi perbandingan waktu untuk menentukan Waktu Solat. 
 2.  Sebaliknya - jam diawalkan sebanyak 15 minit agar perbandingan waktu dibuat 15 minit sebelum masuknya Waktu Solat tersebut.
-3.  Ini membolehkan notifikasi/automation yang berasignan dibuat berbanding jika sudah masuk waktu - misalnya tutup langsir sebelum Maghrib atau memainkan Youtube Live video Makkah/Madinah di TV.
+3.  Ini membolehkan notifikasi/automation yang berasignan dibuat berbanding jika sudah masuk waktu - misalnya tutup langsir sebelum Maghrib atau memainkan Youtube Live video Makkah/Madinah di TV sementara menunggu masuk waktu solat.
 
 ![Step4](https://github.com/anas-ivs/HA-NR-WaktuSolatJakim/blob/main/images/Step4-Notifikasi%2015%20Minit_cmp.PNG)
 
@@ -135,15 +133,15 @@ Jika sudah bersedia - bolehlah terus lompat terus ke [sini](#ExportedFlow)
 
    1. Trigger `scenes` yang sudah ditetapkan di dalam Home Assistant - seperti membuka lampu luar dan menutup langsir 15 minit sebelum Maghrib.
 
-      ![Maghrib Scene](C:\Users\user\Documents\GitHub\HA-NR-WaktuSolatJakim\images\maghrib_lampuONscene.PNG)
+      ![Maghrib Scene](https://raw.githubusercontent.com/anas-ivs/HA-NR-WaktuSolatJakim/main/images/maghrib_lampuONscene.PNG)
 
    2. Mendapatkan hadith daripada Sunnah.com dan menghantar ke Telegram supaya boleh dibaca dan perkongsian bersama keluarga selesai Solat jemaah Maghrib. 
 
-      ![GetHadith](C:\Users\user\Documents\GitHub\HA-NR-WaktuSolatJakim\images\gethadith.PNG)
+      ![GetHadith](https://raw.githubusercontent.com/anas-ivs/HA-NR-WaktuSolatJakim/main/images/gethadith.PNG)
 
    3. 30 minit selepas masuk waktu Subuh - menghantar Weather forecast ke Telegram supaya boleh tentukan cuaca baik atau tidak untuk berjogging.
 
-      ![WeatherForecast](C:\Users\user\Documents\GitHub\HA-NR-WaktuSolatJakim\images\weatherforecast.PNG)
+      ![WeatherForecast](https://raw.githubusercontent.com/anas-ivs/HA-NR-WaktuSolatJakim/main/images/weatherforecast.PNG)
 
 
 
@@ -167,11 +165,15 @@ Jika sudah bersedia - bolehlah terus lompat terus ke [sini](#ExportedFlow)
 
       
 
-      ![](C:\Users\user\Documents\GitHub\HA-NR-WaktuSolatJakim\images\streaminglink.PNG)
+      ![](https://raw.githubusercontent.com/anas-ivs/HA-NR-WaktuSolatJakim/main/images/streaminglink.PNG)
 
       
 
-   2. [Vertical stack in card](https://github.com/ofekashery/vertical-stack-in-card) membolehkan penyusunan lovelace secara kompak tanpa border.
+   3. Vertical stack in card](https://github.com/ofekashery/vertical-stack-in-card) membolehkan penyusunan lovelace secara kompak tanpa border.
+
+   4. Bagi laungan azan, copy dari folder `MP3 azan` dan simpan di folder homeassistant `/media`
+
+   ![Mp3 azan](https://raw.githubusercontent.com/anas-ivs/HA-NR-WaktuSolatJakim/main/images/azan_mp3.PNG)
 
 3. Bagi Node-Red; pallette berikut diperlukan (Ikon burger di atas hujung kanan -> Manage Pallette -> Install ) 
    1.  Keperluan:
@@ -214,7 +216,7 @@ Jika sudah bersedia - bolehlah terus lompat terus ke [sini](#ExportedFlow)
 
          Bagi Chat ID - isikan di function block berikut
 
-         ![Telegram ID](C:\Users\user\Documents\GitHub\HA-NR-WaktuSolatJakim\images\telegram_ChatID.PNG)
+         ![Telegram ID](https://raw.githubusercontent.com/anas-ivs/HA-NR-WaktuSolatJakim/main/images/telegram_ChatID.PNG)
 
          
 
@@ -303,7 +305,7 @@ cards:
 
 4. Lovelace penyelengaraan (simpan di dashboard khas supaya tidak mudah diubah)
 
-   ![Maintenance Dashboard](C:\Users\user\Documents\GitHub\HA-NR-WaktuSolatJakim\images\LovelaceWaktuSolatMaintenance.PNG)
+   ![Maintenance Dashboard](https://raw.githubusercontent.com/anas-ivs/HA-NR-WaktuSolatJakim/main/images/LovelaceWaktuSolatMaintenance.PNG)
 
 ```yaml
 type: custom:vertical-stack-in-card
